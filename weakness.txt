@@ -1,0 +1,12 @@
+Weaknesses
+Single Server Scenario:
+
+In-Memory Cache Limitation: The in-memory cache does not scale across multiple instances, limiting the solution to a single server.
+Latency: Concurrent requests for the same content will result in one of them receiving a "processing" message, which might not be ideal.
+
+Distributed System Scenario:
+
+Distributed Lock Overhead: The use of distributed locks adds latency and complexity, especially if the lock server (Redis) becomes a bottleneck or fails.
+Scalability: While Redis helps with scaling, there can still be contention for the same lock key, affecting performance under high load.
+Consistency: The solution relies on eventual consistency. If a server fails while holding a lock, there could be a delay before the lock is released, causing processing delays.
+By implementing these solutions, you can ensure that items are processed correctly without duplicates, both in single-server and distributed environments.
